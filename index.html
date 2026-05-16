@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VEGU Präzisionsdrehteile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <style>
+        :root {
+            /* Colors */
+            --color-bg: #F4F5F6;
+            --color-surface: #FFFFFF;
+            --color-text: #111827;
+            --color-text-muted: #6B7280;
+            --color-accent: #EAB308;
+            --color-dark: #1F2937;
+            --color-border: #E5E7EB;
+            --color-border-dark: #374151;
+
+            /* Typography */
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            
+            /* Fluid Type Scale */
+            --text-xs: clamp(0.75rem, 1.5vw, 0.875rem);
+            --text-sm: clamp(0.875rem, 1.8vw, 1rem);
+            --text-base: clamp(1rem, 2vw, 1.125rem);
+            --text-lg: clamp(1.125rem, 2.5vw, 1.375rem);
+            --text-xl: clamp(1.375rem, 3vw, 1.75rem);
+            --text-2xl: clamp(1.75rem, 4vw, 2.5rem);
+            --text-3xl: clamp(2.25rem, 5vw, 3.5rem);
+            --text-4xl: clamp(3rem, 7vw, 4.5rem);
+
+            /* Spacing */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-4: 1rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-24: 6rem;
+            --section-padding: clamp(4rem, 10vw, 8rem);
+
+            /* Z-Index Definitions */
+            --z-base: 0;
+            --z-raised: 10;
+            --z-dropdown: 100;
+            --z-sticky: 200;
+            --z-overlay: 500;
+            --z-modal: 1000;
+            --z-toast: 2000;
+            --z-max: 9000;
+        }
+
+        /* Reset & Base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            border-radius: 0; /* Strict sharp corners */
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: var(--color-text);
+        }
+
+        .text-muted { color: var(--color-text-muted); }
+        
+        /* Icons */
+        [data-lucide] {
+            display: inline-block;
+            vertical-align: middle;
+            flex-shrink: 0;
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .icon-text {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45em;
+        }
+
+        /* Layout Utilities */
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+
+        .grid { display: grid; }
+        .flex { display: flex; }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45em;
+            padding: 1rem 2rem;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: var(--text-base);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.2s ease;
+            position: relative;
+            z-index: var(--z-raised);
+            border: 1px solid transparent;
+            background-color: var(--color-text);
+            color: var(--color-surface);
+        }
+
+        .btn:hover {
+            background-color: var(--color-accent);
+            color: var(--color-text);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* Skip Link */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--color-accent);
+            color: var(--color-text);
+            padding: 1rem;
+            z-index: var(--z-max);
+            font-family: var(--font-heading);
+            font-weight: 700;
+        }
+        .skip-link:focus { top: 0; }
+
+        /* Header & Navigation */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background-color: rgba(244, 245, 246, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 1001; /* EXACT literal number required */
+            display: flex;
+            align-items: center;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            position: relative;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: var(--text-xl);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--color-text);
+            text-transform: uppercase;
+        }
+
+        .desktop-nav {
+            display: none;
+            gap: var(--space-8);
+        }
+
+        .desktop-nav a {
+            font-family: var(--font-heading);
+            font-size: var(--text-sm);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: relative;
+        }
+
+        .desktop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-accent);
+            transition: width 0.2s ease;
+        }
+
+        .desktop-nav a:hover::after { width: 100%; }
+
+        /* Mobile Nav */
+        .nav-toggle {
+            position: absolute;
+            right: var(--space-6);
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1002; /* EXACT literal number required */
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--color-text);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-toggle[aria-expanded="true"] span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .nav-toggle[aria-expanded="true"] span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .nav-toggle[aria-expanded="true"] span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000; /* EXACT literal number required */
+            background-color: var(--color-bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-overlay.is-active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .mobile-nav-links a {
+            font-family: var(--font-heading);
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            padding: 1rem 0;
+        }
+
+        @media (min-width: 768px) {
+            .desktop-nav { display: flex; }
+            .nav-toggle { display: none; pointer-events: none; }
+        }
+        @media (max-width: 767px) {
+            .desktop-nav { display: none; }
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 80px; /* Offset for fixed header */
+            display: grid;
+            grid-template-columns: 1fr;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .hero-content {
+            padding: var(--space-12) var(--space-6);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .hero-headline {
+            font-size: var(--text-4xl);
+            margin-bottom: var(--space-6);
+            max-width: 15ch;
+        }
+
+        .hero-sub {
+            font-size: var(--text-lg);
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-8);
+            max-width: 40ch;
+        }
+
+        .hero-visual {
+            min-height: 45vh;
+            background-color: var(--color-dark);
+            position: relative;
+        }
+
+        .hero-visual img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (min-width: 1024px) {
+            .hero { 
+                min-height: 100vh;
+                grid-template-columns: 1fr 1fr; 
+            }
+            .hero-content { 
+                padding: var(--section-padding) var(--space-16); 
+                border-bottom: none;
+                border-right: 1px solid var(--color-border);
+            }
+            .hero-visual { 
+                min-height: auto; 
+            }
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background-color: var(--color-dark);
+            color: var(--color-surface);
+            border-bottom: 1px solid var(--color-border-dark);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .stat-item {
+            padding: var(--space-8) var(--space-6);
+            border-right: 1px solid var(--color-border-dark);
+            border-bottom: 1px solid var(--color-border-dark);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: var(--text-3xl);
+            font-weight: 700;
+            color: var(--color-accent);
+        }
+
+        .stat-label {
+            font-size: var(--text-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #9CA3AF;
+        }
+
+        @media (min-width: 768px) {
+            .stats-grid { grid-template-columns: repeat(4, 1fr); }
+            .stat-item { border-bottom: none; }
+            .stat-item:last-child { border-right: none; }
+        }
+
+        /* Sections General */
+        .section {
+            padding: var(--section-padding) 0;
+            border-bottom: 1px solid var(--color-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-header {
+            margin-bottom: var(--space-12);
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: var(--text-3xl);
+            margin-bottom: var(--space-4);
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-12);
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-text p {
+            margin-bottom: var(--space-4);
+            font-size: var(--text-lg);
+        }
+
+        .about-image {
+            position: relative;
+            aspect-ratio: 4/3;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            padding: var(--space-4);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: -5%;
+            transform: translateY(-50%);
+            font-family: var(--font-heading);
+            font-size: clamp(10rem, 25vw, 20rem);
+            font-weight: 700;
+            color: var(--color-border);
+            opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
+            line-height: 1;
+            user-select: none;
+        }
+
+        @media (min-width: 1024px) {
+            .about-grid { grid-template-columns: 1fr 1fr; align-items: center; }
+        }
+
+        /* Services & Industries Grid */
+        .grid-blueprint {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1px;
+            background-color: var(--color-border);
+            border: 1px solid var(--color-border);
+            position: relative;
+            z-index: 1;
+        }
+
+        .card {
+            background-color: var(--color-surface);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: var(--color-accent);
+            transition: height 0.2s ease;
+        }
+
+        .card:hover::after { height: 2px; }
+
+        .card-img-wrap {
+            height: 240px;
+            width: 100%;
+            background-color: var(--color-bg);
+            position: relative;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .card-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-img-placeholder {
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-surface);
+            background-image: linear-gradient(45deg, var(--color-bg) 25%, transparent 25%, transparent 75%, var(--color-bg) 75%, var(--color-bg)),
+                              linear-gradient(45deg, var(--color-bg) 25%, transparent 25%, transparent 75%, var(--color-bg) 75%, var(--color-bg));
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-img-placeholder::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 1px;
+            background-color: var(--color-border-dark);
+            transform: rotate(-45deg);
+        }
+
+        .card-content {
+            padding: var(--space-8);
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: var(--text-xl);
+            margin-bottom: var(--space-4);
+        }
+
+        @media (min-width: 768px) {
+            .services-grid { grid-template-columns: repeat(3, 1fr); }
+            .industries-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .industries-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        /* Technologies Section (Dark) */
+        .section-dark {
+            background-color: var(--color-dark);
+            color: var(--color-surface);
+            border-color: var(--color-border-dark);
+        }
+
+        .section-dark .section-title { color: var(--color-surface); }
+        .section-dark .text-muted { color: #9CA3AF; }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-12);
+            position: relative;
+            z-index: 1;
+        }
+
+        .tech-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .tech-list li {
+            font-family: var(--font-heading);
+            font-size: var(--text-2xl);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--color-border-dark);
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .tech-list li::before {
+            content: '';
+            display: block;
+            width: 12px;
+            height: 12px;
+            background-color: var(--color-accent);
+        }
+
+        .tech-image {
+            aspect-ratio: 16/9;
+            border: 1px solid var(--color-border-dark);
+        }
+
+        .tech-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (min-width: 1024px) {
+            .tech-grid { grid-template-columns: 1fr 1.5fr; align-items: center; }
+        }
+
+        /* FAQ Accordion */
+        .faq-item {
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .faq-btn {
+            width: 100%;
+            text-align: left;
+            padding: var(--space-6) 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-heading);
+            font-size: var(--text-lg);
+            font-weight: 700;
+            color: var(--color-text);
+            position: relative;
+            z-index: var(--z-raised);
+        }
+
+        .faq-icon::before {
+            content: '+';
+            font-size: 1.5rem;
+            line-height: 1;
+            font-weight: 400;
+        }
+
+        .faq-btn[aria-expanded="true"] .faq-icon::before {
+            content: '−';
+        }
+
+        .faq-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.3s ease;
+        }
+
+        .faq-btn[aria-expanded="true"] + .faq-content {
+            grid-template-rows: 1fr;
+        }
+
+        .faq-content-inner {
+            overflow: hidden;
+            color: var(--color-text-muted);
+            padding-bottom: var(--space-6);
+        }
+        
+        .faq-btn[aria-expanded="false"] + .faq-content .faq-content-inner {
+            padding-bottom: 0;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-12);
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group {
+            margin-bottom: var(--space-6);
+        }
+
+        .form-label {
+            display: block;
+            font-family: var(--font-heading);
+            font-size: var(--text-sm);
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            text-transform: uppercase;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--color-border);
+            background-color: var(--color-surface);
+            font-family: var(--font-body);
+            font-size: var(--text-base);
+            color: var(--color-text);
+            transition: border-color 0.2s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--color-text);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: var(--space-4);
+            align-items: flex-start;
+            margin-bottom: var(--space-8);
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-top: 0.3rem;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--color-text);
+            flex-shrink: 0;
+        }
+
+        .checkbox-group label {
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+            line-height: 1.4;
+        }
+
+        @media (min-width: 1024px) {
+            .contact-grid { grid-template-columns: 1fr 1.5fr; }
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: var(--color-dark);
+            color: var(--color-surface);
+            padding: clamp(4rem, 8vw, 7rem) 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-12);
+            margin-bottom: var(--space-12);
+        }
+
+        .footer-col h4 {
+            color: var(--color-surface);
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-6);
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .footer-links a, .footer-links button {
+            color: #9CA3AF;
+            font-size: var(--text-sm);
+            transition: color 0.2s ease;
+            text-align: left;
+            display: inline-block;
+        }
+
+        .footer-links a:hover, .footer-links button:hover {
+            color: var(--color-accent);
+        }
+
+        .trigger-demo-modal {
+            position: relative;
+            z-index: var(--z-raised);
+        }
+
+        .footer-logo {
+            font-family: var(--font-heading);
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--color-surface);
+            text-transform: uppercase;
+            margin-bottom: var(--space-6);
+            display: inline-block;
+        }
+
+        .footer-eu-logo {
+            max-width: 240px;
+            margin-top: var(--space-6);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--color-border-dark);
+            padding-top: var(--space-6);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+            font-size: var(--text-xs);
+            color: #9CA3AF;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid { grid-template-columns: 2fr 1fr 1fr; }
+            .footer-bottom { flex-direction: row; justify-content: space-between; align-items: flex-start; }
+            .footer-eu-logo { margin-top: 0; }
+        }
+
+        /* Modals & Overlays */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(4px);
+            z-index: var(--z-max); /* 9000 as requested */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-4);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.is-active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background-color: var(--color-surface);
+            width: 100%;
+            max-width: 480px;
+            padding: var(--space-8);
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.is-active .modal-card {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: var(--space-4);
+            right: var(--space-4);
+            color: var(--color-text-muted);
+            padding: var(--space-2);
+        }
+
+        .modal-close:hover { color: var(--color-text); }
+
+        .modal-title {
+            font-size: var(--text-2xl);
+            margin-bottom: var(--space-4);
+        }
+
+        .modal-body {
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-6);
+        }
+
+        .modal-links {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+        
+        .modal-links a {
+            color: var(--color-text);
+            font-weight: 500;
+            text-decoration: underline;
+            text-decoration-color: var(--color-accent);
+            text-underline-offset: 4px;
+        }
+
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: var(--space-6);
+            left: var(--space-6);
+            right: var(--space-6);
+            max-width: 400px;
+            background-color: var(--color-dark);
+            color: var(--color-surface);
+            padding: var(--space-6);
+            z-index: var(--z-toast);
+            border: 1px solid var(--color-border-dark);
+            transform: translateY(150%);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cookie-banner.is-visible {
+            transform: translateY(0);
+        }
+
+        .cookie-text {
+            font-size: var(--text-sm);
+            color: #9CA3AF;
+            margin-bottom: var(--space-6);
+        }
+
+        .cookie-actions {
+            display: flex;
+            gap: var(--space-4);
+        }
+
+        .cookie-actions .btn {
+            padding: 0.75rem 1.5rem;
+            font-size: var(--text-xs);
+            flex: 1;
+            border: 1px solid var(--color-border-dark);
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; transition: none; }
+        }
+    </style>
+</head>
+<body>
+<!-- DEMO NOTICE BANNER - benedictjaros.com -->
+<style>
+#__demo_spacer{display:block;}
+#__demo_notice,#__demo_notice *{box-sizing:border-box;margin:0;padding:0;}
+#__demo_notice{
+  position:fixed;top:0;left:0;right:0;z-index:99999;
+  background:rgba(9,9,11,.97);
+  backdrop-filter:blur(14px) saturate(160%);
+  -webkit-backdrop-filter:blur(14px) saturate(160%);
+  border-bottom:1px solid rgba(255,255,255,.07);
+  font-family:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+#__demo_inner{
+  max-width:1280px;margin:0 auto;
+  padding:0 44px 0 18px;min-height:38px;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
+#__demo_dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:#f5c842;box-shadow:0 0 7px rgba(245,200,66,.55);}
+#__demo_label{color:#f5c842;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;flex-shrink:0;}
+#__demo_divider{color:rgba(255,255,255,.15);font-size:12px;flex-shrink:0;}
+#__demo_text{color:rgba(255,255,255,.45);font-size:11.5px;line-height:1.45;flex:1 1 160px;}
+#__demo_links{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+#__demo_links a{
+  color:rgba(255,255,255,.38);font-size:11px;text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.14);
+  transition:color .15s,border-color .15s;white-space:nowrap;
+}
+#__demo_links a:hover{color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.4);}
+#__demo_link_sep{color:rgba(255,255,255,.15);font-size:10px;}
+#__demo_close{
+  position:absolute;right:0;top:0;bottom:0;width:40px;
+  background:none;border:none;cursor:pointer;
+  color:rgba(255,255,255,.28);font-size:16px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  transition:color .15s;
+}
+#__demo_close:hover{color:rgba(255,255,255,.7);}
+@media(max-width:560px){
+  #__demo_inner{padding:7px 44px 7px 14px;gap:6px;}
+  #__demo_text{font-size:11px;flex:1 1 100%;order:3;}
+  #__demo_dot,#__demo_label{order:1;}
+  #__demo_divider{order:2;}
+  #__demo_links{order:4;}
+}
+</style>
+<div id="__demo_spacer"></div>
+<div id="__demo_notice" role="banner" aria-label="Demo notice">
+  <div id="__demo_inner">
+    <span id="__demo_dot"></span>
+    <span id="__demo_label">Demo</span>
+    <span id="__demo_divider">/</span>
+    <span id="__demo_text">Unofficial remake &mdash; not the real website. All content &amp; trademarks belong to their owners.</span>
+    <div id="__demo_links">
+      <a href="https://benedictjaros.com/impressum" target="_blank" rel="noopener noreferrer">Impressum</a>
+      <span id="__demo_link_sep">&middot;</span>
+      <a href="https://benedictjaros.com/datenschutz" target="_blank" rel="noopener noreferrer">Datenschutz</a>
+    </div>
+  </div>
+  <button id="__demo_close" aria-label="Close demo notice">&#x2715;</button>
+</div>
+<script>
+(function () {
+  var spacer = document.getElementById('__demo_spacer');
+  var b = document.getElementById('__demo_notice');
+  var x = document.getElementById('__demo_close');
+  if (!b || !spacer) return;
+  function sync() { spacer.style.height = b.offsetHeight + 'px'; }
+  function hide() {
+    b.style.display = 'none'; spacer.style.height = '0';
+    try { sessionStorage.setItem('__demo_closed', '1'); } catch (e) {}
+  }
+  try { if (sessionStorage.getItem('__demo_closed')) { b.style.display = 'none'; spacer.style.height = '0'; return; } } catch (e) {}
+  sync();
+  window.addEventListener('resize', function () { if (b.style.display !== 'none') sync(); });
+  if (x) x.addEventListener('click', hide);
+}());
+</script>
+
+
+    <a href="#main" class="skip-link">Zum Inhalt springen</a>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="#" class="logo">VEGU</a>
+            
+            <nav class="desktop-nav" aria-label="Hauptnavigation">
+                <a href="#about">Über uns</a>
+                <a href="#services">Leistungen</a>
+                <a href="#technologies">Technologien</a>
+                <a href="#industries">Branchen</a>
+                <a href="#contact">Kontakt</a>
+            </nav>
+
+            <button class="nav-toggle" aria-expanded="false" aria-label="Menü öffnen">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay">
+        <nav class="mobile-nav-links" aria-label="Mobile Navigation">
+            <a href="#about">Über uns</a>
+            <a href="#services">Leistungen</a>
+            <a href="#technologies">Technologien</a>
+            <a href="#industries">Branchen</a>
+            <a href="#contact">Kontakt</a>
+        </nav>
+    </div>
+
+    <main id="main">
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-headline">Entdecken Sie die Perfektion hinter jedem Bauteil.</h1>
+                <p class="hero-sub">6 verschiedene Maschinenkonzepte. Mehr als 2800 Artikel. Bis zu 30 Millionen Teile pro Jahr.</p>
+                <div>
+                    <a href="#contact" class="btn">
+                        Kontakt aufnehmen <i data-lucide="arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <img src="https://vegu.at/wp-content/uploads/2024/12/201712_VEGU_Productshot_01.png" alt="Makroaufnahme eines präzisionsgefertigten Metallbauteils" fetchpriority="high">
+            </div>
+        </section>
+
+        <!-- Stats Bar -->
+        <section class="stats-bar">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item reveal" style="--i:0">
+                        <span class="stat-number">20</span>
+                        <span class="stat-label">Jahre Erfahrung</span>
+                    </div>
+                    <div class="stat-item reveal" style="--i:1">
+                        <span class="stat-number">63 Millionen</span>
+                        <span class="stat-label">Drehteile</span>
+                    </div>
+                    <div class="stat-item reveal" style="--i:2">
+                        <span class="stat-number">57</span>
+                        <span class="stat-label">Mitarbeiter</span>
+                    </div>
+                    <div class="stat-item reveal" style="--i:3">
+                        <span class="stat-number">600 Tonnen</span>
+                        <span class="stat-label">Material</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section id="about" class="section">
+            <div class="watermark" aria-hidden="true">VEGU</div>
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-text reveal">
+                        <h2 class="section-title">Willkommen bei VEGU Präzisionsdrehteile GmbH</h2>
+                        <p class="text-muted">Mit mehr als 20 Jahren Erfahrung sind wir Ihr verlässlicher Partner für hochpräzise Drehteile. Wir fertigen für anspruchsvolle Industrien, bei denen es auf den Mikrometer ankommt.</p>
+                        <p class="text-muted">Warum VEGU Ihr perfekter Partner ist: Höchste Flexibilität, modernste CNC-Technologie und individuelle Beratung von der Planung bis zur Serienfertigung.</p>
+                    </div>
+                    <div class="about-image reveal">
+                        <img src="https://vegu.at/wp-content/uploads/2024/12/Vegu5.png" alt="VEGU Firmengebäude und Produktion" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section id="services" class="section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Unsere Leistungen im Überblick</h2>
+                    <p class="text-muted">Präzision in jedem Schritt. Von der Zerspanung bis zur finalen Qualitätskontrolle.</p>
+                </div>
+
+                <div class="grid-blueprint services-grid">
+                    <!-- Card 1 -->
+                    <div class="card reveal" style="--i:0">
+                        <div class="card-img-wrap">
+                            <div class="card-img-placeholder"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Dreh- und Fräsarbeiten</h3>
+                            <p class="text-muted">Hochpräzise Bearbeitung komplexer Geometrien auf modernsten Mehrspindel- und Langdrehautomaten.</p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="card reveal" style="--i:1">
+                        <div class="card-img-wrap">
+                            <div class="card-img-placeholder"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Komplettlösungen</h3>
+                            <p class="text-muted">Von der Materialbeschaffung über die Fertigung bis hin zu Oberflächenbehandlungen und Montagebaugruppen.</p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="card reveal" style="--i:2">
+                        <div class="card-img-wrap">
+                            <img src="https://vegu.at/wp-content/uploads/2024/12/koordinatenmessmaschine-1024x682.png" alt="Koordinatenmessmaschine im Einsatz" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Zuverlässige Qualitätssicherung</h3>
+                            <p class="text-muted">Lückenlose Dokumentation und modernste Messtechnik garantieren Null-Fehler-Toleranz.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technologies -->
+        <section id="technologies" class="section section-dark">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Technologien, die den Unterschied machen</h2>
+                    <p class="text-muted">Unser Maschinenpark ist auf maximale Effizienz und kompromisslose Genauigkeit ausgelegt.</p>
+                </div>
+
+                <div class="tech-grid">
+                    <ul class="tech-list reveal">
+                        <li>Ringdreher</li>
+                        <li>Langdreher und Kurzdreher</li>
+                        <li>Hydromaten</li>
+                        <li>Mehrspindler</li>
+                    </ul>
+                    <div class="tech-image reveal">
+                        <img src="https://vegu.at/wp-content/uploads/2024/12/2017_VEGU_HiRes_77-1-1024x683.jpg" alt="Blick in die moderne Fertigungshalle von VEGU" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Industries -->
+        <section id="industries" class="section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Die Branchen, die wir beliefern</h2>
+                    <p class="text-muted">Wo höchste Anforderungen an Material und Toleranzen gestellt werden, sind unsere Bauteile im Einsatz.</p>
+                </div>
+
+                <div class="grid-blueprint industries-grid">
+                    <div class="card reveal" style="--i:0">
+                        <div class="card-img-wrap">
+                            <img src="https://vegu.at/wp-content/uploads/2024/12/Automobilindustrie-1-1024x683.jpeg" alt="Automobilindustrie" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Automobilindustrie</h3>
+                        </div>
+                    </div>
+                    <div class="card reveal" style="--i:1">
+                        <div class="card-img-wrap"><div class="card-img-placeholder"></div></div>
+                        <div class="card-content"><h3 class="card-title">Maschinenbau</h3></div>
+                    </div>
+                    <div class="card reveal" style="--i:2">
+                        <div class="card-img-wrap"><div class="card-img-placeholder"></div></div>
+                        <div class="card-content"><h3 class="card-title">Magnetindustrie</h3></div>
+                    </div>
+                    <div class="card reveal" style="--i:3">
+                        <div class="card-img-wrap"><div class="card-img-placeholder"></div></div>
+                        <div class="card-content"><h3 class="card-title">Agrartechnik</h3></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section id="faq" class="section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Häufig gestellte Fragen</h2>
+                </div>
+                <div class="faq-container reveal">
+                    <div class="faq-item">
+                        <button class="faq-btn" aria-expanded="false">
+                            Welche Losgrößen fertigen Sie?
+                            <span class="faq-icon"></span>
+                        </button>
+                        <div class="faq-content">
+                            <div class="faq-content-inner">
+                                Wir sind auf mittlere bis große Serien spezialisiert und fertigen bis zu 30 Millionen Teile pro Jahr, können aber auch Prototypen in der Vorlaufphase realisieren.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn" aria-expanded="false">
+                            Welche Materialien können bearbeitet werden?
+                            <span class="faq-icon"></span>
+                        </button>
+                        <div class="faq-content">
+                            <div class="faq-content-inner">
+                                Wir bearbeiten sämtliche zerspanbaren Werkstoffe, darunter Automatenstahl, Edelstahl, Messing, Aluminium sowie diverse Sonderlegierungen.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn" aria-expanded="false">
+                            Bieten Sie auch Oberflächenbehandlungen an?
+                            <span class="faq-icon"></span>
+                        </button>
+                        <div class="faq-content">
+                            <div class="faq-content-inner">
+                                Ja, in Zusammenarbeit mit zertifizierten Partnern bieten wir alle gängigen galvanischen und thermischen Behandlungen als Komplettlösung an.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-info reveal">
+                        <h2 class="section-title">Lassen Sie uns Ihre Ideen umsetzen.</h2>
+                        <p class="text-muted" style="margin-bottom: var(--space-8);">Kontaktieren Sie uns für ein unverbindliches Angebot oder technische Beratung.</p>
+                        
+                        <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                            <div class="icon-text text-muted">
+                                <i data-lucide="map-pin"></i> VEGU Präzisionsdrehteile GmbH, Österreich
+                            </div>
+                            <div class="icon-text text-muted">
+                                <i data-lucide="phone"></i> +43 000 000000
+                            </div>
+                            <div class="icon-text text-muted">
+                                <i data-lucide="mail"></i> office@vegu.at
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="contact-form reveal" id="contactForm">
+                        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4);">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" id="name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="company" class="form-label">Firma</label>
+                                <input type="text" id="company" class="form-control">
+                            </div>
+                        </div>
+                        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4);">
+                            <div class="form-group">
+                                <label for="email" class="form-label">E-Mail</label>
+                                <input type="email" id="email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Telefon</label>
+                                <input type="tel" id="phone" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="form-label">Nachricht</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="gdpr" required>
+                            <label for="gdpr">Ich habe die Datenschutzerklärung zur Kenntnis genommen und stimme zu, dass meine Daten zur Bearbeitung der Anfrage verarbeitet werden. *</label>
+                        </div>
+
+                        <button type="submit" class="btn" id="submitBtn" disabled>
+                            Anfrage senden
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">VEGU</div>
+                    <p class="text-muted" style="max-width: 300px; margin-bottom: var(--space-6);">Präzision in Serie. Ihr Partner für komplexe Drehteile und Baugruppen.</p>
+                    <div style="display: flex; gap: var(--space-4);">
+                        <a href="#" aria-label="LinkedIn" class="icon-text"><i data-lucide="linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">Über uns</a></li>
+                        <li><a href="#services">Leistungen</a></li>
+                        <li><a href="#technologies">Technologien</a></li>
+                        <li><a href="#industries">Branchen</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Rechtliches</h4>
+                    <ul class="footer-links">
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><button type="button" class="trigger-demo-modal">Impressum</button></li>
+                        <li><button type="button" class="trigger-demo-modal">Datenschutz</button></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2026 VEGU Präzisionsdrehteile GmbH — All original content, images & trademarks are property of their respective owners. Website rebuilt by Benedict Jaros.</p>
+                <img src="https://vegu.at/wp-content/uploads/2023/08/de-kofinanziert-von-der-europaeischen-union_pos-1024x215.png" alt="Kofinanziert von der Europäischen Union" class="footer-eu-logo" loading="lazy">
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="demoModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-card">
+            <button class="modal-close" aria-label="Schließen"><i data-lucide="x"></i></button>
+            <h2 class="modal-title" id="modalTitle">Rechtliche Hinweise</h2>
+            <p class="modal-body">
+                Diese Website ist ein Demo-Remake und wurde nicht von oder für das Unternehmen erstellt. Die Inhalte dienen ausschließlich Demonstrationszwecken. Für unsere eigenen rechtlichen Informationen:
+            </p>
+            <div class="modal-links">
+                <a href="https://benedictjaros.com/impressum" target="_blank">Impressum</a>
+                <a href="https://benedictjaros.com/datenschutz" target="_blank">Datenschutz</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Banner -->
+    <div class="cookie-banner" id="cookieBanner" role="region" aria-label="Cookie Banner">
+        <p class="cookie-text">Wir verwenden Cookies, um die Funktionalität der Website zu gewährleisten und die Nutzung zu analysieren. Bitte wählen Sie Ihre Präferenzen.</p>
+        <div class="cookie-actions">
+            <button class="btn" id="acceptCookies">Akzeptieren</button>
+            <button class="btn" id="declineCookies">Ablehnen</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Icons
+            lucide.createIcons();
+
+            // Mobile Navigation
+            const navToggle = document.querySelector('.nav-toggle');
+            const mobileOverlay = document.querySelector('.mobile-overlay');
+            const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+
+            function toggleMenu() {
+                const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+                navToggle.setAttribute('aria-expanded', !isExpanded);
+                navToggle.setAttribute('aria-label', !isExpanded ? 'Menü schließen' : 'Menü öffnen');
+                mobileOverlay.classList.toggle('is-active');
+                document.body.style.overflow = isExpanded ? '' : 'hidden';
+            }
+
+            navToggle.addEventListener('click', toggleMenu);
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', toggleMenu);
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && mobileOverlay.classList.contains('is-active')) {
+                    toggleMenu();
+                }
+            });
+
+            // Scroll Reveal
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.12
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                revealObserver.observe(el);
+            });
+
+            // FAQ Accordion
+            const faqBtns = document.querySelectorAll('.faq-btn');
+            faqBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+                    
+                    // Close others
+                    faqBtns.forEach(b => b.setAttribute('aria-expanded', 'false'));
+                    
+                    // Toggle current
+                    if (!isExpanded) {
+                        btn.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+
+            // Form Validation
+            const gdprCheckbox = document.getElementById('gdpr');
+            const submitBtn = document.getElementById('submitBtn');
+            const contactForm = document.getElementById('contactForm');
+
+            if(gdprCheckbox && submitBtn) {
+                gdprCheckbox.addEventListener('change', (e) => {
+                    submitBtn.disabled = !e.target.checked;
+                });
+
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    // Simulate form submission
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = 'Gesendet';
+                    setTimeout(() => {
+                        contactForm.reset();
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = originalText;
+                    }, 3000);
+                });
+            }
+
+            // Demo Modal Logic
+            const demoModal = document.getElementById('demoModal');
+            const modalCloseBtn = demoModal.querySelector('.modal-close');
+            const demoTriggers = document.querySelectorAll('.trigger-demo-modal');
+
+            function openModal() {
+                demoModal.classList.add('is-active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                demoModal.classList.remove('is-active');
+                document.body.style.overflow = '';
+            }
+
+            demoTriggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openModal();
+                });
+            });
+
+            modalCloseBtn.addEventListener('click', closeModal);
+            
+            demoModal.addEventListener('click', (e) => {
+                if (e.target === demoModal) closeModal();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && demoModal.classList.contains('is-active')) {
+                    closeModal();
+                }
+            });
+
+            // Cookie Banner Logic
+            const cookieBanner = document.getElementById('cookieBanner');
+            const acceptBtn = document.getElementById('acceptCookies');
+            const declineBtn = document.getElementById('declineCookies');
+
+            if (!localStorage.getItem('cookie_consent')) {
+                // Small delay for entrance animation
+                setTimeout(() => {
+                    cookieBanner.classList.add('is-visible');
+                }, 1000);
+            }
+
+            function handleCookieChoice(choice) {
+                localStorage.setItem('cookie_consent', choice);
+                cookieBanner.classList.remove('is-visible');
+            }
+
+            acceptBtn.addEventListener('click', () => handleCookieChoice('accepted'));
+            declineBtn.addEventListener('click', () => handleCookieChoice('declined'));
+        });
+    </script>
+</body>
+</html>
